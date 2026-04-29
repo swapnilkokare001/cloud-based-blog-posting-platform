@@ -5,15 +5,16 @@ import connectDB from '@/lib/mongodb';
 import Blog from '@/models/Blog';
 import { deleteFromS3 } from '@/lib/s3';
 
-type Params = { params: { slug: string } };
+type Params = Promise<{ slug: string }>;
 
 // ── GET /api/blogs/[slug] ──────────────────────────────
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(req: NextRequest, { params }: { params: Params }) {
   try {
     await connectDB();
+    const { slug } = await params;
 
     const blog = await Blog.findOneAndUpdate(
-      { slug: params.slug, status: 'published' },
+      { slug, status: 'published' },
       { $inc: { views: 1 } },
       { new: true }
     )
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 }
 
 // ── PATCH /api/blogs/[slug] ────────────────────────────
-export async function PATCH(req: NextRequest, { params }: Params) {
+export async function PATCH(req: NextRequest, { params }: { params: Params }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -39,8 +40,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     }
 
     await connectDB();
+    const { slug } = await params;
 
-    const blog = await Blog.findOne({ slug: params.slug });
+    const blog = await Blog.findOne({ slug });
     if (!blog) {
       return NextResponse.json({ success: false, message: 'Blog not found' }, { status: 404 });
     }
@@ -58,7 +60,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     }
 
     const updated = await Blog.findOneAndUpdate(
-      { slug: params.slug },
+      { slug },
       { $set: body },
       { new: true, runValidators: true }
     )
@@ -72,7 +74,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 }
 
 // ── DELETE /api/blogs/[slug] ───────────────────────────
-export async function DELETE(req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: { params: Params }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -80,8 +82,9 @@ export async function DELETE(req: NextRequest, { params }: Params) {
     }
 
     await connectDB();
+    const { slug } = await params;
 
-    const blog = await Blog.findOne({ slug: params.slug });
+    const blog = await Blog.findOne({ slug });
     if (!blog) {
       return NextResponse.json({ success: false, message: 'Blog not found' }, { status: 404 });
     }

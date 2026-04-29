@@ -6,20 +6,23 @@ import User from '@/models/User';
 import Blog from '@/models/Blog';
 import { z } from 'zod';
 
+type Params = Promise<{ id: string }>;
+
 // ── GET /api/users/[id] ────────────────────────────────
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   try {
     await connectDB();
+    const { id } = await params;
 
-    const user = await User.findById(params.id).select('-password -resetPasswordToken').lean();
+    const user = await User.findById(id).select('-password -resetPasswordToken').lean();
     if (!user) {
       return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
     }
 
-    const blogs = await Blog.find({ author: params.id, status: 'published' })
+    const blogs = await Blog.find({ author: id, status: 'published' })
       .select('title slug excerpt coverImage publishedAt readTime views likesCount')
       .populate('category', 'name color')
       .sort({ publishedAt: -1 })
@@ -49,11 +52,12 @@ const updateSchema = z.object({
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
-    if (!session || (session.user.id !== params.id && session.user.role !== 'admin')) {
+    if (!session || (session.user.id !== id && session.user.role !== 'admin')) {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
@@ -68,7 +72,7 @@ export async function PATCH(
       );
     }
 
-    const user = await User.findByIdAndUpdate(params.id, { $set: parsed.data }, { new: true }).select(
+    const user = await User.findByIdAndUpdate(id, { $set: parsed.data }, { new: true }).select(
       '-password'
     );
 
