@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme — warm off-white editorial */
+    --background: 40 30% 97%;
+    --foreground: 30 15% 12%;
+
+    --card: 40 25% 99%;
+    --card-foreground: 30 15% 12%;
+
+    --primary: 24 85% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 20% 93%;
+    --secondary-foreground: 30 15% 20%;
+
+    --muted: 40 15% 90%;
+    --muted-foreground: 30 10% 45%;
+
+    --accent: 198 80% 38%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 15% 86%;
+    --input: 30 15% 86%;
+    --ring: 24 85% 45%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark theme — deep ink editorial */
+    --background: 222 20% 9%;
+    --foreground: 40 20% 92%;
+
+    --card: 222 20% 12%;
+    --card-foreground: 40 20% 92%;
+
+    --primary: 24 90% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 222 15% 18%;
+    --secondary-foreground: 40 15% 80%;
+
+    --muted: 222 15% 16%;
+    --muted-foreground: 40 10% 55%;
+
+    --accent: 198 75% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 15% 22%;
+    --input: 222 15% 22%;
+    --ring: 24 90% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-muted; }
+  ::-webkit-scrollbar-thumb { @apply bg-muted-foreground/40 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/60; }
+}
+
+@layer components {
+  /* Blog content prose styles */
+  .blog-content {
+    @apply text-foreground leading-relaxed;
+    font-size: 1.125rem;
+  }
+  .blog-content h1 { @apply text-4xl mt-12 mb-6; }
+  .blog-content h2 { @apply text-3xl mt-10 mb-4; }
+  .blog-content h3 { @apply text-2xl mt-8 mb-3; }
+  .blog-content p  { @apply mb-6; }
+  .blog-content a  { @apply text-primary underline underline-offset-2 hover:opacity-80; }
+  .blog-content blockquote {
+    @apply border-l-4 border-primary pl-6 my-8 italic text-muted-foreground;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+  }
+  .blog-content code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+  .blog-content pre {
+    @apply bg-muted rounded-lg p-5 my-6 overflow-x-auto;
+  }
+  .blog-content pre code { @apply bg-transparent p-0; }
+  .blog-content ul { @apply list-disc pl-6 mb-6 space-y-2; }
+  .blog-content ol { @apply list-decimal pl-6 mb-6 space-y-2; }
+  .blog-content img { @apply rounded-xl my-8 w-full object-cover; }
+  .blog-content hr { @apply border-border my-10; }
+  .blog-content table { @apply w-full border-collapse my-6; }
+  .blog-content th { @apply border border-border bg-muted px-4 py-2 text-left font-semibold; }
+  .blog-content td { @apply border border-border px-4 py-2; }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-muted animate-pulse rounded;
+  }
+  .skeleton-shimmer {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.15) 50%, hsl(var(--muted)) 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Hero gradient */
+  .hero-gradient {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, hsl(var(--accent) / 0.08), transparent);
+  }
+
+  /* Glass card */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/60 shadow-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+}
