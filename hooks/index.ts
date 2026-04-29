@@ -1,6 +1,5 @@
 // hooks/useBlogs.ts
-import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
+import { useDispatch, useSelector, useCallback } from 'react';
 import type { AppDispatch, RootState } from '@/redux/store';
 import { fetchBlogs, fetchBlogBySlug, toggleLike, setPage, setSelectedCategory, setSearchQuery } from '@/redux/slices/blogSlice';
 
@@ -70,7 +69,7 @@ export function useAuth() {
 
 
 // hooks/useUpload.ts
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
