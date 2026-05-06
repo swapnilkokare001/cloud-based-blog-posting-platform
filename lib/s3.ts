@@ -123,7 +123,7 @@ export async function generatePresignedUploadUrl(
  * Generate a CloudFront CDN URL from an S3 key
  */
 export function getCDNUrl(key: string): string {
-  if (!key) return '/images/placeholder.jpg';
+  if (!key) return '';
   if (key.startsWith('http')) return key; // Already a full URL
   return CLOUDFRONT_URL
     ? `${CLOUDFRONT_URL}/${key}`

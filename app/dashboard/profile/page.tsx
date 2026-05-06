@@ -98,7 +98,7 @@ export default function ProfileSettingsPage() {
                 className="min-h-0"
               />
               <p className="text-xs text-muted-foreground mt-2">
-                Stored on AWS S3 · Served via CloudFront CDN
+                Upload a profile photo (JPG, PNG, max 5MB)
               </p>
             </div>
           </div>

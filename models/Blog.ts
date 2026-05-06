@@ -122,7 +122,7 @@ BlogSchema.pre('save', function (next) {
 
 // Full-text search index
 BlogSchema.index({ title: 'text', content: 'text', tags: 'text' });
-BlogSchema.index({ slug: 1 }, { unique: true });
+// Note: slug index is already created by `unique: true` on the field definition
 BlogSchema.index({ author: 1, status: 1 });
 BlogSchema.index({ category: 1, status: 1 });
 BlogSchema.index({ status: 1, publishedAt: -1 });

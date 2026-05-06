@@ -110,10 +110,12 @@ export default function BlogDetailClient({ blog, related }: Props) {
         <div className="w-full h-64 sm:h-80 lg:h-96 overflow-hidden relative">
           <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-          {/* CloudFront CDN badge */}
-          <div className="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm flex items-center gap-1">
-            ☁️ Served via CloudFront CDN
-          </div>
+          {/* CloudFront CDN badge — only shown when CloudFront is configured */}
+          {process.env.NEXT_PUBLIC_CLOUDFRONT_URL && (
+            <div className="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm flex items-center gap-1">
+              ☁️ Served via CloudFront CDN
+            </div>
+          )}
         </div>
       )}
 

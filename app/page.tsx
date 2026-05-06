@@ -61,7 +61,7 @@ export default async function HomePage() {
                 <span className="text-gradient">Inspire.</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                A lightweight blog hosting platform built on Next.js 14, MongoDB Atlas, and AWS.
+                A lightweight blog hosting platform built on Next.js, MongoDB Atlas, and AWS.
                 Share your ideas with the world at cloud speed.
               </p>
               <div className="flex items-center gap-3 flex-wrap">
@@ -82,7 +82,7 @@ export default async function HomePage() {
 
               {/* Stack badges */}
               <div className="flex flex-wrap gap-2 mt-10">
-                {['Next.js 14', 'MongoDB Atlas', 'AWS S3', 'CloudFront CDN', 'NextAuth.js', 'Redux Toolkit'].map((tech) => (
+                {['Next.js', 'MongoDB Atlas', 'AWS S3', 'CloudFront CDN', 'NextAuth.js', 'Redux Toolkit'].map((tech) => (
                   <span key={tech} className="text-xs text-muted-foreground bg-muted px-2.5 py-1 rounded-full border border-border">
                     {tech}
                   </span>
@@ -178,7 +178,7 @@ export default async function HomePage() {
               Ready to share your story?
             </h2>
             <p className="text-white/80 mb-8">
-              Join thousands of writers publishing on BlogCloud. Your audience is waiting.
+              Start writing on BlogCloud today. Your audience is waiting.
             </p>
             <Link
               href="/register"

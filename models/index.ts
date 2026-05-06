@@ -94,7 +94,7 @@ const CategorySchema = new Schema<ICategory>(
   { timestamps: true }
 );
 
-CategorySchema.index({ slug: 1 }, { unique: true });
+// Note: slug index is already created by `unique: true` on the field definition
 
 export const Category: Model<ICategory> =
   mongoose.models.Category || mongoose.model<ICategory>('Category', CategorySchema);

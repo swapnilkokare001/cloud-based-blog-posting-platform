@@ -24,9 +24,9 @@ export default function ForgotPasswordPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    // In a real implementation, call /api/auth/forgot-password
-    // For this project, simulate the request
-    await new Promise((r) => setTimeout(r, 1000));
+    // Note: Email sending requires SMTP configuration in .env.local
+    // Currently shows a confirmation UI without sending a real email
+    await new Promise((r) => setTimeout(r, 800));
     setSubmittedEmail(data.email);
     setSubmitted(true);
   };
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
                 <label className="block text-sm font-medium text-foreground mb-1.5">Email address</label>
                 <input
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder="Email address"
                   {...register('email')}
                   className="w-full px-4 py-2.5 bg-background border border-input rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,9 +20,16 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const { unreadCount } = useSelector((s: RootState) => s.notifications);
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Close menus on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setProfileOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);

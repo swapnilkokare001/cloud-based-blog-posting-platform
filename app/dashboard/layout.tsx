@@ -14,8 +14,8 @@ import Navbar from '@/components/layout/Navbar';
 
 const navItems = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, exact: true },
-  { href: '/dashboard/blogs', label: 'My Posts', icon: FileText },
-  { href: '/dashboard/blogs/create', label: 'Write Post', icon: PenSquare },
+  { href: '/dashboard/blogs', label: 'My Posts', icon: FileText, exact: true },
+  { href: '/dashboard/blogs/create', label: 'Write Post', icon: PenSquare, exact: true },
   { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
   { href: '/dashboard/profile', label: 'Profile', icon: Settings },
 ];

@@ -244,13 +244,13 @@ export default function CreateEditBlogPage({ initialData, blogSlug }: Props) {
               </div>
             </div>
 
-            {/* Cloud Info */}
+            {/* Writing Tips */}
             <div className="bg-muted/40 border border-dashed border-border rounded-xl p-4">
-              <p className="text-xs font-semibold text-muted-foreground mb-2">☁️ Cloud Info</p>
+              <p className="text-xs font-semibold text-muted-foreground mb-2">✍️ Writing Tips</p>
               <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Images stored on <strong className="text-foreground">AWS S3</strong></li>
-                <li>• Served via <strong className="text-foreground">CloudFront CDN</strong></li>
-                <li>• Data persisted in <strong className="text-foreground">MongoDB Atlas</strong></li>
+                <li>• Use <strong className="text-foreground">headings</strong> to structure your post</li>
+                <li>• Add a compelling <strong className="text-foreground">cover image</strong></li>
+                <li>• Write an <strong className="text-foreground">excerpt</strong> for search visibility</li>
               </ul>
             </div>
           </div>

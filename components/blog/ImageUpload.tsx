@@ -56,7 +56,7 @@ export default function ImageUpload({
         });
 
         onChange(publicUrl, key);
-        toast.success('Image uploaded to AWS S3 ✓');
+        toast.success('Image uploaded ✓');
       } catch (err) {
         // Fallback: upload via server-side API
         try {
@@ -98,9 +98,11 @@ export default function ImageUpload({
       <div className={`relative rounded-xl overflow-hidden bg-muted group ${className}`}>
         <img src={value} alt="Cover" className="w-full h-48 object-cover" />
         {/* CDN badge */}
-        <div className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
-          ☁️ CloudFront CDN
-        </div>
+        {process.env.NEXT_PUBLIC_CLOUDFRONT_URL && (
+          <div className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
+            ☁️ CDN
+          </div>
+        )}
         {onRemove && (
           <button
             onClick={onRemove}
@@ -136,7 +138,7 @@ export default function ImageUpload({
         {isUploading ? (
           <>
             <Loader2 className="w-8 h-8 text-primary animate-spin" />
-            <p className="text-sm text-muted-foreground">Uploading to AWS S3...</p>
+            <p className="text-sm text-muted-foreground">Uploading image...</p>
           </>
         ) : (
           <>
@@ -148,7 +150,7 @@ export default function ImageUpload({
                 Drop image or <span className="text-primary">browse</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                PNG, JPG, WebP up to 5MB · Stored on AWS S3 · Served via CloudFront
+                PNG, JPG, WebP up to 5MB
               </p>
             </div>
             <Upload className="w-4 h-4 text-muted-foreground" />
