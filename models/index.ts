@@ -4,7 +4,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 // COMMENT MODEL
 // ──────────────────────────────────────────────────────
 export interface IComment extends Document {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   blog: mongoose.Types.ObjectId;
   author: mongoose.Types.ObjectId;
   content: string;
@@ -66,7 +66,7 @@ export const Like: Model<ILike> =
 // CATEGORY MODEL
 // ──────────────────────────────────────────────────────
 export interface ICategory extends Document {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   slug: string;
   description?: string;

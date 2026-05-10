@@ -37,7 +37,32 @@ BlogCloud is a production-grade blog hosting platform where users can write, pub
 
 ---
 
-## ☁️ Cloud Computing Concepts Demonstrated
+## ⚠️ Bun Compatibility Notes
+
+This project has been updated for full Bun compatibility. Key changes and potential issues:
+
+### ✅ Compatible Dependencies
+- **Next.js 14+** — Fully compatible
+- **AWS SDK v3** — Works perfectly
+- **Mongoose** — No issues
+- **Redux Toolkit** — Compatible
+- **Most React ecosystem packages** — Generally work well
+
+### ⚠️ Dependencies That Needed Changes
+- **`bcryptjs` → `bcrypt`** — `bcryptjs` has known issues with Bun's Node.js compatibility layer. Switched to native `bcrypt` for better performance and compatibility.
+
+### 🚨 Potential Issues to Watch For
+- **Sharp** — Image processing library. If you encounter issues with image uploads, you may need to add Sharp as a direct dependency or use an alternative.
+- **NextAuth.js v4** — May have some edge cases with Bun. Consider upgrading to NextAuth.js v5 when available for better Bun support.
+- **Native modules** — Some packages with native bindings may need special handling.
+
+### 🐛 Troubleshooting
+If you encounter issues:
+1. Clear lockfile and node_modules: `rm -rf node_modules bun.lockb && bun install`
+2. Check Bun's ecosystem docs: https://bun.sh/docs/ecosystem
+3. Test in isolated environment before production deployment
+
+---
 
 ### 1. AWS S3 — Object Storage
 - Blog cover images uploaded directly to S3
@@ -192,8 +217,22 @@ blog-platform/
 ```bash
 git clone <repo-url>
 cd blog-platform
-npm install
+bun install
 ```
+
+### ⚠️ Migrating from npm to Bun
+
+If you're migrating an existing project:
+
+1. **Remove npm lockfile**: Delete `package-lock.json` and `node_modules/`
+2. **Install with Bun**: Run `bun install` to generate `bun.lockb`
+3. **Update dependencies**: Some packages may need updates for Bun compatibility
+4. **Test thoroughly**: Run your app and test all features
+
+**Key changes made:**
+- Replaced `bcryptjs` with `bcrypt` (better Bun compatibility)
+- Added `"engines": {"bun": ">=1.0.0"}` to package.json
+- Updated all deployment scripts to use Bun commands
 
 ### 2. Configure Environment
 ```bash
@@ -252,7 +291,7 @@ cp .env.example .env.local
 
 ### 7. Run Development Server
 ```bash
-npm run dev
+bun dev
 # Open http://localhost:3000
 ```
 
@@ -262,10 +301,11 @@ npm run dev
 
 ### Option A — Vercel (Recommended)
 ```bash
-npm install -g vercel
+bun add -g vercel
 vercel login
 vercel --prod
 
+# Vercel automatically detects Bun from package.json engines field
 # Add environment variables in Vercel dashboard:
 # Project → Settings → Environment Variables
 ```
@@ -273,19 +313,23 @@ vercel --prod
 ### Option B — AWS EC2
 ```bash
 # 1. Launch EC2 instance (Ubuntu 22.04, t2.micro for free tier)
-# 2. Install dependencies
-sudo apt update && sudo apt install -y nodejs npm nginx
+# 2. Install Bun (instead of Node.js/npm)
+curl -fsSL https://bun.sh/install | bash
+source ~/.bashrc
 
 # 3. Clone and build
 git clone <repo> && cd blog-platform
-npm install && npm run build
+bun install && bun run build
 
-# 4. Use PM2 for process management
-npm install -g pm2
-pm2 start npm --name "blogcloud" -- start
+# 4. Option A: Use Bun's native process manager
+bun run start
+
+# 4. Option B: Use PM2 with Bun (if you prefer PM2)
+bun add -g pm2
+pm2 start "bun run start" --name "blogcloud"
 pm2 save && pm2 startup
 
-# 5. Configure Nginx reverse proxy
+# 5. Configure Nginx reverse proxy (same as before)
 # /etc/nginx/sites-available/blogcloud:
 server {
     listen 80;

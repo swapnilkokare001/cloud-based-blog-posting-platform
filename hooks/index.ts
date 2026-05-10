@@ -1,5 +1,6 @@
 // hooks/useBlogs.ts
-import { useDispatch, useSelector, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
 import type { AppDispatch, RootState } from '@/redux/store';
 import { fetchBlogs, fetchBlogBySlug, toggleLike, setPage, setSelectedCategory, setSearchQuery } from '@/redux/slices/blogSlice';
 
@@ -9,7 +10,7 @@ export function useBlogs() {
 
   const loadBlogs = useCallback(
     (params?: { page?: number; category?: string; search?: string }) => {
-      dispatch(fetchBlogs(params));
+      dispatch(fetchBlogs(params || {}));
     },
     [dispatch]
   );

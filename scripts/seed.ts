@@ -5,7 +5,7 @@
  */
 
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/blogplatform';
 

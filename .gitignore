@@ -1,3 +1,30 @@
-node_modules 
-.next 
-.env.local 
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.production
+.env.staging
+.env*.local
+
+# SSH / PEM keys — NEVER commit these
+*.pem
+newkey.pem
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*

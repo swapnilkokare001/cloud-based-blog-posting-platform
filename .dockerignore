@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.gitignore
+*.pem
+.env
+.env.local
+.env.production
+.env.staging
+npm-debug.log*
+README.md
+Dockerfile
+.dockerignore

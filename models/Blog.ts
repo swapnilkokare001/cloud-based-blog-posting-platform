@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IBlog extends Document {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   title: string;
   slug: string;
   excerpt: string;
