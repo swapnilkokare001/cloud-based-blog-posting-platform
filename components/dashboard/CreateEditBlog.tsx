@@ -36,7 +36,21 @@ interface Props {
 export default function CreateEditBlogPage({ initialData, blogSlug }: Props) {
   const router = useRouter();
   const isEditing = !!initialData;
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories] = useState<Category[]>([
+    { _id: 'technology', name: 'Technology', icon: '💻', color: '#3B82F6' },
+    { _id: 'programming', name: 'Programming', icon: '🧑‍💻', color: '#8B5CF6' },
+    { _id: 'web-development', name: 'Web Development', icon: '🌐', color: '#06B6D4' },
+    { _id: 'data-science', name: 'Data Science', icon: '📊', color: '#10B981' },
+    { _id: 'ai-ml', name: 'AI & Machine Learning', icon: '🤖', color: '#F59E0B' },
+    { _id: 'cloud-computing', name: 'Cloud Computing', icon: '☁️', color: '#6366F1' },
+    { _id: 'devops', name: 'DevOps', icon: '⚙️', color: '#EF4444' },
+    { _id: 'cybersecurity', name: 'Cybersecurity', icon: '🔒', color: '#EC4899' },
+    { _id: 'mobile-development', name: 'Mobile Development', icon: '📱', color: '#14B8A6' },
+    { _id: 'design', name: 'Design', icon: '🎨', color: '#F97316' },
+    { _id: 'career', name: 'Career & Growth', icon: '🚀', color: '#84CC16' },
+    { _id: 'tutorials', name: 'Tutorials', icon: '📚', color: '#A855F7' },
+    { _id: 'other', name: 'Other', icon: '📝', color: '#64748B' },
+  ]);
   const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
   const [coverImageKey, setCoverImageKey] = useState(initialData?.coverImageKey || '');
   const [saving, setSaving] = useState(false);
@@ -49,7 +63,7 @@ export default function CreateEditBlogPage({ initialData, blogSlug }: Props) {
       title: initialData?.title || '',
       excerpt: initialData?.excerpt || '',
       content: initialData?.content || '',
-      category: initialData?.category?._id || '',
+      category: initialData?.category?._id || initialData?.category || '',
       tags: initialData?.tags?.join(', ') || '',
       metaTitle: initialData?.seo?.metaTitle || '',
       metaDescription: initialData?.seo?.metaDescription || '',
@@ -57,10 +71,6 @@ export default function CreateEditBlogPage({ initialData, blogSlug }: Props) {
   });
 
   const contentValue = watch('content');
-
-  useEffect(() => {
-    axios.get('/api/categories').then((r) => setCategories(r.data.data));
-  }, []);
 
   // Auto-generate excerpt from content if empty
   const titleValue = watch('title');

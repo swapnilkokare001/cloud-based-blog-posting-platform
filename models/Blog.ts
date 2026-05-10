@@ -9,7 +9,7 @@ export interface IBlog extends Document {
   coverImage?: string;
   coverImageKey?: string; // S3 key for deletion
   author: mongoose.Types.ObjectId;
-  category: mongoose.Types.ObjectId;
+  category: string;
   tags: string[];
   status: 'draft' | 'published' | 'archived';
   featured: boolean;
@@ -64,8 +64,7 @@ const BlogSchema = new Schema<IBlog>(
       required: true,
     },
     category: {
-      type: Schema.Types.ObjectId,
-      ref: 'Category',
+      type: String,
       required: true,
     },
     tags: {
