@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
@@ -8,7 +8,7 @@ import Footer from '@/components/layout/Footer';
 import BlogCard from '@/components/blog/BlogCard';
 import axios from 'axios';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const query = searchParams.get('q') || '';
@@ -91,3 +91,16 @@ export default function SearchPage() {
     </>
   );
 }
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
+  );
+}
+
